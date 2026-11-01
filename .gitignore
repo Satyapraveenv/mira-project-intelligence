@@ -1,0 +1,22 @@
+# Course material is not redistributed
+data/*.csv
+data/*.txt
+*.pdf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secrets and local config
+.env
+*.key
+
+# OS and editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local eval run output
+evaluation/eval_runs/

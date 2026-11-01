@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mira - Project Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 20L12 3L21 20"/><line x1="8" y1="13.5" x2="16" y2="13.5"/>
+        </svg>
+      </div>
+      <div>
+        <span class="logo-name">Mira</span>
+        <span class="logo-sub">Project Intelligence</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-tab="ask">
+        <span class="nav-active-bar"></span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Ask Mira
+      </button>
+
+      <button class="nav-item" data-tab="conflicts">
+        <span class="nav-active-bar"></span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        Conflict Queue
+        <span class="nav-badge" id="nav-conflict-badge" style="display:none">0</span>
+      </button>
+
+      <button class="nav-item" data-tab="dashboard">
+        <span class="nav-active-bar"></span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        Dashboard
+      </button>
+
+      <button class="nav-item" data-tab="history">
+        <span class="nav-active-bar"></span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Run History
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-project">
+        ABCDE Ltd<br>AI Adoption Project
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAP -->
+  <div id="main-wrap">
+
+    <!-- TOPBAR -->
+    <header id="topbar">
+      <span class="topbar-title" id="topbar-title">Ask Mira</span>
+      <div class="topbar-actions" id="topbar-actions"></div>
+    </header>
+
+    <!-- SCREENS -->
+    <main id="main">
+
+      <!-- SCREEN A: Ask Mira -->
+      <div id="screen-ask" class="screen active">
+        <div class="col-wide-left">
+
+          <!-- Left: controls -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Request
+              </span>
+            </div>
+            <div class="card-body">
+              <div class="quick-prompts" id="quick-prompts-container">
+                <button class="qp" data-prompt="Which tasks are blocked or at risk of missing their deadline?">Tracking</button>
+                <button class="qp" data-prompt="Give me the status of the project">Status</button>
+                <button class="qp" data-prompt="What are the top 3 risks?">Risks (top 3)</button>
+                <button class="qp" data-prompt="Give me the milestone status">Milestones</button>
+                <button class="qp" data-prompt="Create a plan for the project">Plan</button>
+                <button class="qp" data-prompt="Give me a client update for the project">Client update</button>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="ask-request">Request</label>
+                <textarea id="ask-request" rows="4" placeholder="Ask about tasks, risks, milestones, status or a plan. Ctrl+Enter to submit."></textarea>
+              </div>
+
+              <div class="row-fields">
+                <div class="field">
+                  <label class="field-label" for="ask-audience">Audience</label>
+                  <select id="ask-audience">
+                    <option value="">None (PM view)</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="business">Business</option>
+                    <option value="leadership">Leadership</option>
+                    <option value="client">Client</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="ask-model">Model</label>
+                  <select id="ask-model">
+                    <option value="mock">mock (no key needed)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row-fields">
+                <div class="field">
+                  <label class="field-label" for="ask-asof">As-of date</label>
+                  <input type="date" id="ask-asof" value="2026-04-20">
+                </div>
+                <div class="field" style="display:flex;align-items:flex-end;padding-bottom:1px;">
+                  <label style="display:flex;align-items:center;gap:8px;font-size:.875rem;font-weight:500;color:var(--text2);cursor:pointer;margin-bottom:0;text-transform:none;letter-spacing:normal;">
+                    <input type="checkbox" id="ask-usetoday" style="width:auto;accent-color:var(--gold);">
+                    Use today
+                  </label>
+                </div>
+              </div>
+
+              <div style="margin-top:18px;">
+                <button id="ask-submit" class="btn btn-primary">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  Ask Mira
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: report -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                Report
+              </span>
+              <div id="ask-report-header-chips"></div>
+            </div>
+            <div class="card-body" id="ask-report">
+              <div class="state-box">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text3)" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>Your report will appear here.</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- SCREEN B: Conflict Queue -->
+      <div id="screen-conflicts" class="screen">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+              Conflict Queue
+            </span>
+            <button class="btn btn-secondary btn-sm" onclick="loadConflicts()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              Refresh
+            </button>
+          </div>
+          <div class="card-body-sm">
+            <p class="text-sm text-muted" style="margin-bottom:14px;line-height:1.55;">
+              Discrepancies in source data detected by Mira's data checker. Only a PM/TPM can sign a decision.
+              Mira never auto-resolves conflicts.
+            </p>
+          </div>
+          <div id="conflicts-list">
+            <div class="state-box"><span class="spinner"></span><span>Loading...</span></div>
+          </div>
+        </div>
+
+        <div id="conflict-detail" style="display:none;margin-top:18px;"></div>
+      </div>
+
+
+      <!-- SCREEN C: Status Dashboard -->
+      <div id="screen-dashboard" class="screen">
+        <div id="dashboard-content">
+          <div class="state-box"><span class="spinner"></span><span>Loading...</span></div>
+        </div>
+      </div>
+
+
+      <!-- SCREEN D: Run History -->
+      <div id="screen-history" class="screen">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Run History
+            </span>
+            <button class="btn btn-secondary btn-sm" onclick="loadRuns()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              Refresh
+            </button>
+          </div>
+          <div class="card-body-sm">
+            <p class="text-sm text-muted" style="margin-bottom:0;line-height:1.55;">
+              Every run from this session and prior sessions. Click a row to view trace spans.
+            </p>
+          </div>
+          <div id="runs-table-wrap">
+            <div class="state-box"><span class="spinner"></span><span>Loading...</span></div>
+          </div>
+        </div>
+
+        <div id="trace-panel" style="display:none;margin-top:18px;"></div>
+      </div>
+
+    </main>
+  </div><!-- end #main-wrap -->
+
+</div><!-- end #app -->
+
+<script src="/static/app.js"></script>
+</body>
+</html>
