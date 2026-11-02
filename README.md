@@ -98,7 +98,7 @@ Added packages (GUI only): `fastapi`, `uvicorn[standard]`, `markdown-it-py`. The
 - [ ] Tier 4: n8n rebuild for platform comparison, fine-tuning experiment
 
 ## Context
-Built as the capstone for Interview Kickstart's Applied Agentic AI for PMs/TPMs. The scenario (Nexora delivering an AI adoption project for ABCDE Ltd) comes from the course and is fictional. The course brief and sample data belong to the course and are not included in this repository.
+Built as the capstone for Applied Agentic AI for PMs/TPMs. The scenario (Nexora delivering an AI adoption project for ABCDE Ltd) comes from the course and is fictional. The course brief and sample data belong to the course and are not included in this repository.
 
 ## Author
 Satya Praveen Vemuri
