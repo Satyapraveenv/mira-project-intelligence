@@ -2,7 +2,20 @@
 
 Mira helps product and programme managers (PMs/TPMs) turn raw project data into plans, risk assessments, status reports, milestone alerts and stakeholder updates, without inventing anything. Every number comes from code, every claim cites its source, and a human decides whenever the data disagrees with itself.
 
-Status: design and eval plan complete. The Tier 1 Python core (router, gates, specialists, grounding verifier, audience writer, tracing hooks, command line) is built and tested with a deterministic mock model (26 data-layer checks and 48 pipeline checks pass). Real-model runs, the LangFlow workflow, Langfuse scoring and the GUI are next. See the roadmap below.
+**Start here: watch the 5 minute opening video:** [Mira walkthrough video](https://drive.google.com/drive/u/0/folders/1vXmLeylFMkdPTViWjfTM145Wjz5DZXZ1)
+
+Status: built and running. The Python core, the Langflow orchestration flow, the local GUI (Ask Mira, Conflict Queue, Dashboard, Run History) and Langfuse tracing with four LLM judges all work. 84 automated checks pass (26 data layer, 58 pipeline). On the real model (gpt-4o-mini, run full-run-4): 17 of 17 code checks, request fit 17 of 17, groundedness 15 of 17, total cost $0.009236 for 17 tests. The five remaining robustness tests (R2, R3, R6, R8, R10) were completed in demo mode with the built-in mock model, because the credits on the course API key ran out part way through. Review time saved is not yet measured.
+
+## Screenshots
+| Ask Mira | Conflict Queue |
+|---|---|
+| ![Ask Mira](docs/screenshots/01_ask_mira.png) | ![Conflict Queue](docs/screenshots/02_conflict_queue.png) |
+| Dashboard | Run History |
+| ![Dashboard](docs/screenshots/03_dashboard.png) | ![Run History](docs/screenshots/04_run_history.png) |
+
+Langflow orchestration: ![Langflow canvas](docs/screenshots/10_langflow_canvas.png)
+
+Langfuse: [traces](docs/screenshots/06_langfuse_tracing.png), [judges](docs/screenshots/07_langfuse_evaluators.png), [judge scores](docs/screenshots/08_langfuse_judge_scores.png), [22 test dataset](docs/screenshots/09_langfuse_dataset.png). The conflict sign-offs visible in the Conflict Queue were recorded while building and testing the screen.
 
 ## The problem
 Many projects run at once, each led by a project manager who owns its plan, task board and risk data. PMs/TPMs coordinate across those projects and across departments, and they lose hours to work that is slow, manual and inconsistent:
@@ -40,7 +53,7 @@ mira_llm.py        OpenAI client and a deterministic mock model for tests
 mira_trace.py      Local JSONL traces plus optional Langfuse
 mira_cli.py        Command line: ask, conflicts, sign
 run_code_tests.py      26 deterministic data-layer checks
-run_pipeline_tests.py  48 end-to-end checks with the mock model
+run_pipeline_tests.py  58 end-to-end checks with the mock model
 ```
 
 ## Run the data checks
@@ -92,13 +105,13 @@ Added packages (GUI only): `fastapi`, `uvicorn[standard]`, `markdown-it-py`. The
 - [x] Tier 1 Python core with gates, grounding verifier and tracing hooks (mock-tested)
 - [x] Tier 1: real-model runs, Langfuse scoring (17 code-checked tests, 4 LLM judges) and the LangFlow workflow export
 - [x] Local web GUI: Ask Mira, Conflict Queue, Dashboard and Run History screens (FastAPI + vanilla JS)
-- [x] Real model (gpt-4o-mini) run full-run-4: 17 of 17 code checks, request fit 17 of 17, groundedness 15 of 17, cost $0.009236. R2, R3, R6, R8, R10 are unit tested on the mock model only
+- [x] Real model (gpt-4o-mini) run full-run-4: 17 of 17 code checks, request fit 17 of 17, groundedness 15 of 17, cost $0.009236. R2, R3, R6, R8, R10 were completed in demo mode (mock model) after the course API credits ran out
 - [x] Tier 2: Milestone Tracker, stakeholder Audience Writer and conflict queue
 - [ ] Tier 3: resource view, readiness and decision register
 - [ ] Tier 4: n8n rebuild for platform comparison, fine-tuning experiment
 
 ## Context
-Built as the capstone for Applied Agentic AI for PMs/TPMs. The scenario (Nexora delivering an AI adoption project for ABCDE Ltd) comes from the course and is fictional. The course brief and sample data belong to the course and are not included in this repository.
+Built as the capstone for Interview Kickstart's Applied Agentic AI for PMs/TPMs. The scenario (Nexora delivering an AI adoption project for ABCDE Ltd) comes from the course and is fictional. The course brief and sample data belong to the course and are not included in this repository.
 
 ## Author
 Satya Praveen Vemuri
